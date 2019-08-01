@@ -1,12 +1,6 @@
-"----------------------------------------------------------------------------
-"
-"    MacVim 8.x configuration
-"    
-"----------------------------------------------------------------------------
-
 colo onedark
+"set guifont=Fira\ Code:h16
 set guifont=Hack:h16
-
 " These lines shoudl be here and not in .vimrc
 macmenu File.Print key=<nop>
 nnoremap <D-p> :Buffers<CR>
@@ -51,3 +45,5 @@ if exists("macvim_hig_shift_movement")
   vn   <S-D-Down>     <S-C-End>
   ino  <S-D-Down>     <S-C-End>
 endif " exists("macvim_hig_shift_movement")
+
+amenu icon=/Applications/MacVim.app/Contents/Resources/Save.png TouchBar.save :w<CR>
