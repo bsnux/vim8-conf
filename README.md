@@ -7,8 +7,7 @@ Simple and useful configuration for Vim 8.x
 ```
 $ git clone https://github.com/bsnux/vim8-conf
 $ cd vim8-conf
-$ git submodule init
-$ git submodule update
+$ git submodule update --init --recursive
 $ mkdir ~/.vim
 $ ln -s vim8-conf/vimrc ~/.vimrc
 $ ln -s vim8-conf/gvimrc ~/.gvimrc
