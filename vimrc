@@ -4,15 +4,16 @@
 "    
 "----------------------------------------------------------------------------
 
+" Optional packages
+" `onedark.vim` must be here, otherwise it won't work
+packadd! onedark.vim
+colorscheme onedark
+
 set nocompatible
 
 set bs=2
 
 set termguicolors
-"colo ayu
-colo one
-"colo onedark
-"colo gruvbox
 set background=dark
 
 filetype on
