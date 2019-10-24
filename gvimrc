@@ -6,10 +6,10 @@
 
 colo onedark
 "set guifont=Fira\ Code:h16
-set guifont=Hack:h16
-" These lines shoudl be here and not in .vimrc
+set guifont=Hack:h15
+" These lines should be here and not in .vimrc
 macmenu File.Print key=<nop>
-nnoremap <D-p> :Buffers<CR>
+nnoremap <D-p> :ls<CR>:b<Space>
 nnoremap <D-right> :bn<CR>
 nnoremap <D-left> :bp<CR>
 macmenu File.Close key=<nop>
@@ -17,11 +17,14 @@ nnoremap <D-w> :bd<CR>
 macmenu File.Save key=<nop>
 inoremap <D-s> <ESC>:w<CR>
 nnoremap <D-s> :w<CR>
+inoremap <D-enter> <ESC>o
 
-set lines=60
+set lines=76
 set columns=120
 
 set autoread
+
+let macvim_hig_shift_movement = 1
 
 if exists("macvim_hig_shift_movement")
   " Shift + special movement key (<S-Left>, etc.) and mouse starts insert mode
@@ -53,3 +56,23 @@ if exists("macvim_hig_shift_movement")
 endif " exists("macvim_hig_shift_movement")
 
 amenu icon=/Applications/MacVim.app/Contents/Resources/Save.png TouchBar.save :w<CR>
+
+" Tab navigation
+nnoremap <M-D-Right>   :tabnext<CR>
+nnoremap <M-D-Left>   :tabprev<CR>
+set guitablabel=⌘%N\ %f
+noremap <D-1> :tabn 1<CR>
+noremap <D-2> :tabn 2<CR>
+noremap <D-3> :tabn 3<CR>
+noremap <D-4> :tabn 4<CR>
+noremap <D-5> :tabn 5<CR>
+noremap <D-6> :tabn 6<CR>
+
+
+set clipboard=unnamed
+
+" Sublime Text background color for base16-ocean
+hi Normal guibg=#2b303b
+
+" VerticalSplit style
+hi VertSplit guibg=#ffffff

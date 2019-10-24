@@ -31,3 +31,24 @@
 [submodule "pack/plugins/start/tagbar"]
 	path = pack/plugins/start/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "pack/plugins/start/base16-vim"]
+	path = pack/plugins/start/base16-vim
+	url = git://github.com/chriskempson/base16-vim.git
+[submodule "pack/plugins/start/ack.vim"]
+	path = pack/plugins/start/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
+[submodule "pack/plugins/opt/vim-fireplace"]
+	path = pack/plugins/opt/vim-fireplace
+	url = https://github.com/tpope/vim-fireplace.git
+[submodule "pack/plugins/opt/vim-salve"]
+	path = pack/plugins/opt/vim-salve
+	url = https://github.com/tpope/vim-salve.git
+[submodule "pack/plugins/opt/rainbow_parentheses.vim"]
+	path = pack/plugins/opt/rainbow_parentheses.vim
+	url = https://github.com/kien/rainbow_parentheses.vim.git
+[submodule "pack/plugins/opt/vim-cljfmt"]
+	path = pack/plugins/opt/vim-cljfmt
+	url = https://github.com/venantius/vim-cljfmt.git
+[submodule "pack/plugins/start/nerdcommenter"]
+	path = pack/plugins/start/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
