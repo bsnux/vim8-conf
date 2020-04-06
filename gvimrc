@@ -4,9 +4,8 @@
 "
 "----------------------------------------------------------------------------
 
-colo onedark
 "set guifont=Fira\ Code:h16
-set guifont=Hack:h15
+set guifont=Hack:h13
 " These lines should be here and not in .vimrc
 macmenu File.Print key=<nop>
 nnoremap <D-p> :ls<CR>:b<Space>
@@ -67,7 +66,6 @@ noremap <D-3> :tabn 3<CR>
 noremap <D-4> :tabn 4<CR>
 noremap <D-5> :tabn 5<CR>
 noremap <D-6> :tabn 6<CR>
-
 
 set clipboard=unnamed
 

@@ -1,25 +1,64 @@
 "----------------------------------------------------------------------------
 "
-"    Vim 8.x configuration with minimum plugins
-"    
+"    Vim 8.x configuration
+"
 "----------------------------------------------------------------------------
+
+"-- Plugin manager
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 "-- Search and replace in files:
 "   :Ack text
 "   :cfdo %s/text/newtext/g
 "   :cfdo update
 "
-"-- Select text 
+call plug#begin()
+"-- Status bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" -- Remote plugin framework used by ncm2 and
+Plug 'roxma/nvim-yarp'
+"--  Completion
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-jedi'
+"-- Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"-- Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+"-- Ack (grep)
+Plug 'mileszs/ack.vim'
+"-- Find and replace
+Plug 'brooth/far.vim'
+"-- Comments
+Plug 'scrooloose/nerdcommenter'
+"-- Automatic closing ()
+Plug 'Raimondi/delimitMate'
+"-- Asynchronous Lint Engine
+Plug 'dense-analysis/ale'
+"-- Fuzzy search
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+"-- Themes
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'git@gitlab.com:yorickpeterse/happy_hacking.vim.git'
+"-- EditorConfig
+Plug 'editorconfig/editorconfig-vim'
+"-- Clojure
+Plug 'tpope/vim-fireplace'
+Plug 'venantius/vim-cljfmt'
+"-- Easy motion
+Plug 'easymotion/vim-easymotion'
+"-- Golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"-- Tagbar
+Plug 'majutsushi/tagbar'
+call plug#end()
 
-"Optional packages
-" `onedark.vim` must be here, otherwise it won't work
-packadd! onedark.vim
-packadd! vim-fireplace
-packadd! vim-salve
-packadd! rainbow_parentheses.vim
-packadd! vim-cljfmt
-
-colorscheme onedark
+colo base16-ocean
 
 set nocompatible
 
@@ -40,14 +79,16 @@ set nu
 set encoding=utf-8
 set noswapfile
 set hidden
-"set clipboard=unnamed
+set clipboard=unnamed
 set ignorecase
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
-"set mouse=a
+set mouse=a
 
 set colorcolumn=80
 "hi ColorColumn ctermbg=0 guibg=lightgrey
 
+set splitright
+set splitbelow
 
 " Changing cursor by mode
 let &t_SI = "\e[6 q"
@@ -65,9 +106,9 @@ let mapleader = ","
 " fuzzy search => use `:find <file>`
 set path+=**
 set wildmenu
-nnoremap <c-p> :find 
+"nnoremap <c-p> :find
 
-" Open a new tab
+" Useful shortcuts
 ca tn tabnew
 
 " Ctrl-g is ESC
@@ -93,12 +134,30 @@ imap <C-k> <esc>d$i
 " Python
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
 
+" Lua
+au BufNewFile,BufRead *.lua set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+
+" YAML
+au BufNewFile,BufRead *.yaml set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+au BufNewFile,BufRead *.yml set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+
 " Jenkinsfile
 autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
 
 " Dockerfiles
 autocmd BufNewFile,BufRead Dockerfile* set ft=dockerfile
 
+" Remove trailing whitespaces on save for some types of files
+autocmd BufWritePre Dockerfile* %s/\s\+$//e
+autocmd BufWritePre Jenkinsfile* %s/\s\+$//e
+autocmd BufWritePre *.py %s/\s\+$//e
+autocmd BufWritePre *.groovy %s/\s\+$//e
+
+" Smart window navigation
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+"nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
 
 " Explorer
 let g:netrw_liststyle = 3
@@ -125,14 +184,6 @@ function! ToggleVExplorer()
   endif
 endfunction
 map <silent> <C-E> :call ToggleVExplorer()<CR>
-
-function! CurrentLineInfo()
-lua << EOF
-local linenr = vim.window().line
-local curline = vim.buffer()[linenr]
-print(string.format("Current line [%d] has %d chars", linenr, #curline))
-EOF
-endfunction
 
 function! PotionCompileAndRunFile()
     ":echo expand('%:p')
@@ -176,6 +227,8 @@ command! -nargs=1 Bs :call BufSel("<args>")
 " ale
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
+let g:ale_linters = {'perl': ['perl','perlcritic'] }
+let g:ale_perl_perlcritic_showrules = 1
 
 " airline
 let g:airline_theme='light'
@@ -191,3 +244,43 @@ let g:airline_powerline_fonts = 2
 map <silent> \ :call NERDComment('n', 'Toggle')<CR>
 map <silent> <C-\> :call NERDComment('n', 'Toggle')<CR>
 imap <silent> <C-\> <C-O>:call NERDComment('n', 'Toggle')<CR>
+
+" fzf
+" enter:    current window
+" ctrl-t:   new tab
+" ctrl-x:   horizontal split
+" ctrl-v:   vertical split
+map <C-p> :FZF<CR>
+map <C-b> :Buffers<CR>
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" Tagbar for Go
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+let g:tagbar_left = 1
