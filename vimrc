@@ -45,6 +45,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'git@gitlab.com:yorickpeterse/happy_hacking.vim.git'
+"-- Dracula theme
+Plug 'dracula/vim', { 'name': 'dracula' }
 "-- EditorConfig
 Plug 'editorconfig/editorconfig-vim'
 "-- Clojure
@@ -82,6 +84,21 @@ set hidden
 set clipboard=unnamed
 set ignorecase
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
+
+" Show existing tab with 4 spaces width
+set tabstop=4
+" 4 spaces will be inserted when tab is pressed
+set softtabstop=4
+" When indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert spaces
+set expandtab
+" Copy indent from current line when starting a new line
+set autoindent
+" Automatically determine the next indentation level based on the file type
+filetype plugin indent on
+
+" Mouse allowed
 set mouse=a
 
 set colorcolumn=80
@@ -142,7 +159,7 @@ au BufNewFile,BufRead *.yaml set tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
 au BufNewFile,BufRead *.yml set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
 " Jenkinsfile
-autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
+autocmd BufNewFile,BufRead Jenkinsfile* set ft=groovy
 
 " Dockerfiles
 autocmd BufNewFile,BufRead Dockerfile* set ft=dockerfile
